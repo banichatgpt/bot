@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bani Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Background Gradient Animation */
+        .animated-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c, #6a0dad, #00d4ff);
+            background-size: 300% 300%;
+            animation: gradientAnimation 8s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Faded Tint Overlay */
+        .background-tint {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black tint */
+            z-index: -1;
+        }
+
+        /* Glassmorphic Background Tile */
+        .glowing-tile {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; /* Match login form width */
+            max-width: 450px; /* Consistent with login form */
+            height: auto; /* Adjust dynamically to content */
+            background: rgba(255, 255, 255, 0.1); /* Transparent white */
+            backdrop-filter: blur(15px); /* Frosted glass effect */
+            border-radius: 15px; /* Match login form's border radius */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+            box-shadow: 0 4px 30px rgba(255, 255, 255, 0.2); /* Soft glow */
+            z-index: 1;
+            padding: 1rem; /* Add spacing around the content */
+        }
+
+        /* Glassmorphic Login Form */
+        .glass-form {
+            background: rgba(255, 255, 255, 0.1); /* Transparent white */
+            backdrop-filter: blur(15px); /* Frosted glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(255, 255, 255, 0.2); /* Soft glow */
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 2; /* Ensures form is above the glowing tile */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Avatar Preview Styling */
+        .avatar-preview {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: inline-block;
+            border: 2px solid white;
+        }
+
+        /* Avatar and Choose File Container */
+        .avatar-container {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Smaller gap between avatar and choose file */
+        }
+
+        /* Input and Button Styling */
+        input, button {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+
+    <!-- Animated Gradient Background -->
+    <div class="animated-gradient"></div>
+
+    <!-- Faded Tint Overlay -->
+    <div class="background-tint"></div>
+
+    <!-- Glassmorphic Background Tile -->
+    <div class="glowing-tile"></div>
+
+    <!-- Login Form Container -->
+    <div class="glass-form p-8 rounded-lg shadow-2xl max-w-md w-full fade-in">
+        <!-- Title -->
+        <h1 class="text-3xl font-bold text-center text-white mb-4">Login to Bani Chatbot</h1>
+
+        <!-- Bani Bot Logo -->
+        <div class="flex justify-center mb-4">
+            <img src="https://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg" alt="Bani Bot Logo" class="h-20 w-20 rounded-full shadow-md">
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="space-y-5">
+            <!-- Username/Email -->
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-300 mb-2">Username or Email</label>
+                <input
+                    type="text"
+                    id="username"
+                    class="w-full p-3 rounded-lg bg-gray-800 text-gray-200 border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Enter your username or email"
+                    required
+                />
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    class="w-full p-3 rounded-lg bg-gray-800 text-gray-200 border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Enter your password"
+                    required
+                />
+            </div>
+
+            <!-- Avatar Preview and File Input -->
+            <div class="avatar-container mt-4">
+                <img id="avatar-preview" class="avatar-preview" src="https://via.placeholder.com/50" alt="Avatar Preview" />
+                <label for="avatar" class="block text-sm font-medium text-gray-300">
+                    <input
+                        type="file"
+                        id="avatar"
+                        accept="image/*"
+                        class="text-gray-200 border border-gray-600 rounded-lg bg-gray-800 p-2 w-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    />
+                </label>
+            </div>
+
+            <!-- Login Button -->
+            <button
+                type="submit"
+                class="w-full mt-4 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white py-3 rounded-lg shadow-lg hover:scale-105 transform transition-all duration-300"
+            >
+                Login
+            </button>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Avatar Upload Preview
+        const avatarInput = document.getElementById('avatar');
+        const avatarPreview = document.getElementById('avatar-preview');
+
+        avatarInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    avatarPreview.src = e.target.result; // Update the preview
+                    localStorage.setItem('userAvatar', e.target.result); // Save the avatar to localStorage
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle Login Form Submission
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get Username and Password Input Values
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // Save the username to localStorage
+            localStorage.setItem('username', username);
+
+            // Simple Validation
+            if (!username || !password) {
+                alert("Please fill in both fields.");
+                return;
+            }
+
+            // Redirect to Chatbot Page on Successful Login
+            alert("Login successful!");
+            window.location.href = "index.html"; // Redirect to chatbot
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Bani Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #ff758c, #6a0dad, #00d4ff, #ff7eb3);
+      background-size: 300% 300%;
+      animation: gradientAnimation 8s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Vibrant Headers */
+    .section-heading {
+      background: linear-gradient(to right, #ff758c, #00d4ff, #6a0dad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+
+    /* Content Tile */
+    .content-tile {
+      backdrop-filter: blur(15px);
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Navigation Link Hover Effect */
+    .nav-link {
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #ff7eb3;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="fixed w-full top-0 z-10 px-6 py-4 bg-gradient-to-r from-purple-600 via-blue-500 to-pink-500 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <img
+          src="https://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg"
+          alt="Bani Logo"
+          class="h-12 w-12 rounded-full shadow-lg"
+        />
+        <h1 class="text-4xl font-bold text-white ml-4 tracking-wide">
+          Bani Chatbot
+        </h1>
+      </div>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="text-white nav-link text-lg">Home</a></li>
+          <li><a href="about.html" class="text-white nav-link text-lg">About</a></li>
+          <li><a href="contact.html" class="text-white nav-link text-lg">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto mt-24 px-4">
+    <div class="content-tile">
+      <h2 class="text-3xl section-heading mb-6">About Bani Chatbot</h2>
+      <p class="text-gray-100 text-lg mb-6">
+        Bani Chatbot is your friendly AI assistant designed to help you with a variety of tasks. Whether you need information, a joke, or just someone to chat with, Bani is here to assist you.
+      </p>
+
+      <h3 class="text-2xl font-bold section-heading mb-4">Features</h3>
+      <ul class="list-disc list-inside text-gray-100 text-lg mb-6">
+        <li>Answering questions</li>
+        <li>Providing information</li>
+        <li>Telling jokes</li>
+        <li>Engaging in casual conversation</li>
+      </ul>
+
+      <h3 class="text-2xl font-bold section-heading mb-4">Our Mission</h3>
+      <p class="text-gray-100 text-lg mb-6">
+        Our mission is to make AI accessible and helpful to everyone. We believe in the power of technology to improve lives and make everyday tasks easier.
+      </p>
+
+      <h3 class="text-2xl font-bold section-heading mb-4">Contact Us</h3>
+      <p class="text-gray-100 text-lg">
+        If you have any questions or feedback, feel free to reach out to us through our
+        <a href="contact.html" class="text-blue-400 hover:underline">Contact</a> page.
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-purple-600 via-blue-500 to-pink-500 text-center text-white py-4 mt-12 shadow-lg">
+    <p>&copy;Made with ❤️ in Haryana.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Bani Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #ff758c, #6a0dad, #00d4ff, #ff7eb3);
+      background-size: 300% 300%;
+      animation: gradientAnimation 8s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Vibrant Headers */
+    .section-heading {
+      background: linear-gradient(to right, #ff758c, #00d4ff, #6a0dad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+
+    /* Content Tile */
+    .content-tile {
+      backdrop-filter: blur(15px);
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Form Inputs */
+    input,
+    textarea {
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border: 2px solid #ff758c;
+      box-shadow: 0 0 10px rgba(255, 117, 140, 0.6);
+    }
+
+    /* Buttons */
+    .form-button {
+      transition: all 0.3s ease-in-out;
+    }
+
+    .form-button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #00d4ff, #6a0dad);
+      box-shadow: 0 4px 10px rgba(0, 212, 255, 0.5);
+    }
+
+    /* Navigation Link Hover Effect */
+    .nav-link {
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #ff7eb3;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="fixed w-full top-0 z-10 px-6 py-4 bg-gradient-to-r from-purple-600 via-blue-500 to-pink-500 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <img
+          src="https://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg"
+          alt="Bani Logo"
+          class="h-12 w-12 rounded-full shadow-lg"
+        />
+        <h1 class="text-4xl font-bold text-white ml-4 tracking-wide">
+          Bani Chatbot
+        </h1>
+      </div>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="text-white nav-link text-lg">Home</a></li>
+          <li><a href="about.html" class="text-white nav-link text-lg">About</a></li>
+          <li><a href="contact.html" class="text-white nav-link text-lg">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto mt-24 px-4">
+    <div class="content-tile">
+      <h2 class="text-3xl section-heading mb-6">Contact Us</h2>
+      <p class="text-gray-100 text-lg mb-6">
+        We would love to hear from you! Whether you have a question, feedback, or just want to say hello, feel free to reach out to us using the form below.
+      </p>
+
+      <form action="/submit-contact" method="POST" class="space-y-6">
+        <!-- Name Input -->
+        <div>
+          <label class="block text-white mb-2" for="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Your Name"
+            class="w-full p-4 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+
+        <!-- Email Input -->
+        <div>
+          <label class="block text-white mb-2" for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Your Email"
+            class="w-full p-4 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+
+        <!-- Message Input -->
+        <div>
+          <label class="block text-white mb-2" for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Your Message"
+            class="w-full p-4 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex space-x-4">
+          <button
+            type="submit"
+            class="form-button bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-lg shadow-lg hover:scale-105"
+          >
+            Send Message
+          </button>
+          <button
+            type="reset"
+            class="form-button bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-lg shadow-lg hover:scale-105"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-purple-600 via-blue-500 to-pink-500 text-center text-white py-4 mt-12 shadow-lg">
+    <p>&copy; Made with ❤️ in Haryana.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bani Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Fade-in Animations for Chat Bubbles */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Chat Bubble Styling */
+        .user-message {
+            background: linear-gradient(135deg, #3B82F6, #2563EB); /* Blue gradient for user */
+            align-self: flex-end; /* User messages on the right */
+            color: white;
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, #C084FC, #A855F7); /* Purple gradient for bot */
+            align-self: flex-start; /* Bot messages on the left */
+            color: white;
+        }
+
+        /* Avatar Styling */
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Bubble Styling */
+        .bubble {
+            padding: 12px 16px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 60%;
+        }
+
+        /* Smooth Scroll for Chat Container */
+        #chat-container {
+            scroll-behavior: smooth;
+        }
+
+        /* Adjust spacing between avatar and bubble */
+        .message-wrapper {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px; /* Space between avatar and bubble */
+        }
+
+        /* Feedback Button Styling */
+        .feedback-button {
+            padding: 6px 10px; /* Smaller size */
+            border-radius: 15px;
+            font-size: 12px; /* Smaller font */
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            background-color: #6b7280; /* Gray background */
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .feedback-button:hover {
+            transform: scale(1.1);
+            background-color: #4b5563; /* Darker gray on hover */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center">
+                <img src="https://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg" alt="Bani Logo" class="h-10 w-10 rounded-full shadow-lg">
+                <h1 class="text-3xl font-bold text-white ml-4">Bani Chatbot</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6 text-white">
+                    <li><a href="index.html" class="hover:underline">Home</a></li>
+                    <li><a href="about.html" class="hover:underline">About</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                    <li><a href="login.html" class="hover:underline">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Chat Section -->
+    <main class="flex-grow container mx-auto px-4 py-6">
+        <div class="bg-white rounded-lg shadow-lg flex flex-col h-[75vh] max-h-[75vh] overflow-hidden">
+
+            <!-- Chat Output -->
+            <div id="chat-container" class="flex-grow p-6 overflow-y-auto bg-gradient-to-t from-gray-100 to-gray-200 flex flex-col space-y-6">
+                <!-- Welcome message placeholder -->
+            </div>
+
+            <!-- Input Section -->
+            <div class="bg-gray-800 p-4">
+                <form id="chat-form" class="flex items-center space-x-4">
+                    <input
+                        id="chat-input"
+                        type="text"
+                        placeholder="Type your message here..."
+                        class="flex-grow p-4 rounded-full bg-gray-700 text-gray-200 border-none focus:ring-2 focus:ring-blue-500 shadow-md"
+                    />
+                    <button
+                        type="submit"
+                        class="bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white px-6 py-2 rounded-full shadow-lg hover:scale-105 transform transition-all duration-300"
+                    >
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-4">
+        <div class="container mx-auto text-center text-gray-400">
+            © Made with ❤️ in Haryana.
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatContainer = document.getElementById('chat-container');
+
+        let botResponseCount = 0; // Counter to track bot responses
+
+        // Play custom sound when page loads
+        const playWelcomeSound = () => {
+            const audio = new Audio("sounds/welcome.mp3");
+            audio.play().catch((error) => console.error("Failed to play sound:", error));
+        };
+
+        // Handle chat submission
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+
+            // Display the user's message
+            addMessage('user', userMessage);
+
+            try {
+                // Send the message to the backend
+                const response = await fetch('http://127.0.0.1:3000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch response from backend.");
+                }
+
+                const data = await response.json();
+                addBotMessageWithTypingEffect(data.response);
+            } catch (error) {
+                console.error("Error:", error.message);
+                addMessage('bot', "Sorry, I couldn't process your request.");
+            }
+        });
+
+        // Add a user or bot message to the chat
+        function addMessage(sender, message) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.classList.add('fade-in', 'message-wrapper');
+
+            // Avatar
+            const avatar = document.createElement('img');
+            avatar.classList.add('avatar');
+
+            if (sender === 'user') {
+                avatar.src = localStorage.getItem('userAvatar') || "https://img.icons8.com/fluency/48/user-male-circle.png";
+                messageWrapper.classList.add('flex-row-reverse', 'self-end'); // Align user message to the right
+            } else {
+                avatar.src = "hhttps://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg"; // Bot avatar
+                messageWrapper.classList.add('self-start'); // Align bot message to the left
+            }
+
+            // Message Bubble
+            const bubble = document.createElement('div');
+            bubble.textContent = message;
+            bubble.classList.add('bubble');
+
+            if (sender === 'user') {
+                bubble.classList.add('user-message');
+            } else {
+                bubble.classList.add('bot-message');
+            }
+
+            // Append elements
+            messageWrapper.appendChild(avatar);
+            messageWrapper.appendChild(bubble);
+            chatContainer.appendChild(messageWrapper);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Add a bot message with typing effect
+        function addBotMessageWithTypingEffect(message) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.classList.add('fade-in', 'message-wrapper', 'self-start');
+
+            // Avatar
+            const avatar = document.createElement('img');
+            avatar.src = "https://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg";
+            avatar.classList.add('avatar');
+
+            // Message Bubble
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble', 'bot-message');
+            bubble.textContent = ""; // Start with an empty message
+
+            messageWrapper.appendChild(avatar);
+            messageWrapper.appendChild(bubble);
+            chatContainer.appendChild(messageWrapper);
+
+            let index = 0;
+            const interval = setInterval(() => {
+                bubble.textContent += message[index];
+                chatContainer.scrollTop = chatContainer.scrollHeight; // Keep scrolling to the latest message
+                index++;
+                if (index === message.length) {
+                    clearInterval(interval);
+                    if (botResponseCount > 0) {
+                        addFeedbackButtons(messageWrapper); // Add feedback buttons after typing finishes
+                    }
+                    botResponseCount++;
+                }
+            }, 50); // Typing speed (50ms per character)
+        }
+
+        // Add feedback buttons below bot responses
+        function addFeedbackButtons(parent) {
+            const feedbackWrapper = document.createElement('div');
+            feedbackWrapper.classList.add('flex', 'space-x-4', 'mt-2');
+
+            // "I like it" Button
+            const likeButton = document.createElement('button');
+            likeButton.textContent = "I like it";
+            likeButton.classList.add('feedback-button', 'like-button');
+            likeButton.addEventListener('click', () => handleFeedback('like'));
+
+            // "I don't like it" Button
+            const dislikeButton = document.createElement('button');
+            dislikeButton.textContent = "I don't like it";
+            dislikeButton.classList.add('feedback-button', 'dislike-button');
+            dislikeButton.addEventListener('click', () => handleFeedback('dislike'));
+
+            // Append buttons to feedback wrapper
+            feedbackWrapper.appendChild(likeButton);
+            feedbackWrapper.appendChild(dislikeButton);
+
+            // Append feedback wrapper to parent message
+            parent.appendChild(feedbackWrapper);
+        }
+
+        // Handle feedback clicks
+        function handleFeedback(feedback) {
+            // Play sound based on feedback
+            const audio = new Audio(
+                feedback === 'like' ? "sounds/like.mp3" : "sounds/dislike.mp3"
+            );
+            audio.play().catch((error) => console.error("Failed to play sound:", error));
+
+            console.log(`User feedback: ${feedback}`); // Log the feedback
+            alert(`Thank you for your feedback: "${feedback}"`); // Show confirmation to the user
+        }
+
+        // Show welcome message and play sound
+        document.addEventListener('DOMContentLoaded', () => {
+            playWelcomeSound();
+            const username = localStorage.getItem('username') || "User";
+            addBotMessageWithTypingEffect(`Welcome, ${username}! 😊 How can I assist you today?`);
+        });
+    </script>
+</body>
+</html>
