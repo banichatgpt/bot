@@ -82,59 +82,28 @@
         .feedback-button:hover {
             transform: scale(1.1);
             background-color: #4b5563; /* Darker gray on hover */
-
-            /* Dark Mode Styles */
-.dark-mode {
-    background-color: #1a202c; /* Dark background */
-    color: #f7fafc;           /* Light text */
-}
-
-.dark-mode header {
-    background: linear-gradient(to right, #2d3748, #4a5568);
-}
-
-.dark-mode .bg-gray-800 {
-    background-color: #2d3748 !important;
-}
-
-.dark-mode .bg-white {
-    background-color: #2d3748 !important;
-}
-
-.dark-mode .text-gray-400 {
-    color: #a0aec0 !important;
-}
-
-.dark-mode input {
-    background-color: #4a5568 !important;
-    color: #f7fafc !important;
-}
         }
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white min-h-screen flex flex-col">
 
     <!-- Header -->
-   <header class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-4 shadow-lg">
-    <div class="container mx-auto flex justify-between items-center px-4">
-        <div class="flex items-center">
-            <img src="https://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg" alt="Bani Logo" class="h-10 w-10 rounded-full shadow-lg">
-            <h1 class="text-3xl font-bold text-white ml-4">Siya Chatbot</h1>
+    <header class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center">
+                <img src="https://img.freepik.com/premium-photo/modern-round-logo-with-futuristic-woman-soft-colors-light-background-generative-ai_7023-240020.jpg" alt="Bani Logo" class="h-10 w-10 rounded-full shadow-lg">
+                <h1 class="text-3xl font-bold text-white ml-4">Siya Chatbot</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6 text-white">
+                    <li><a href="index.html" class="hover:underline">Home</a></li>
+                    <li><a href="about.html" class="hover:underline">About</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                    <li><a href="login.html" class="hover:underline">Logout</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav>
-            <ul class="flex space-x-6 text-white">
-                <li><a href="index.html" class="hover:underline">Home</a></li>
-                <li><a href="about.html" class="hover:underline">About</a></li>
-                <li><a href="contact.html" class="hover:underline">Contact</a></li>
-                <li><a href="login.html" class="hover:underline">Logout</a></li>
-            </ul>
-        </nav>
-        <!-- Dark Mode Toggle -->
-        <button id="dark-mode-toggle" class="bg-gray-800 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-700 transition">
-            Dark Mode
-        </button>
-    </div>
-</header>
+    </header>
 
     <!-- Main Chat Section -->
     <main class="flex-grow container mx-auto px-4 py-6">
@@ -171,6 +140,7 @@
             © Made with ❤️ on Mars.
         </div>
     </footer>
+
     <!-- JavaScript -->
     <script>
         const chatForm = document.getElementById('chat-form');
@@ -328,26 +298,6 @@
             const username = localStorage.getItem('username') || "User";
             addBotMessageWithTypingEffect(Welcome, ${username}! 😊 i'm Siya How can I assist you today?);
         });
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-const body = document.body;
-
-// Check localStorage for dark mode preference
-if (localStorage.getItem('darkMode') === 'enabled') {
-    body.classList.add('dark-mode');
-}
-
-// Toggle dark mode on button click
-darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-
-    // Save preference in localStorage
-    if (body.classList.contains('dark-mode')) {
-        localStorage.setItem('darkMode', 'enabled');
-    } else {
-        localStorage.setItem('darkMode', 'disabled');
-    }
-});
-
     </script>
 </body>
-</html>
+</html> 
