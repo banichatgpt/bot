@@ -86,24 +86,20 @@
 
         /* Dark Mode Styles */
         .dark-mode {
-            background-color: #1a202c; /* Dark background */
-            color: #f7fafc; /* Light text */
+            background-color: #1a202c;
+            color: #f7fafc;
         }
 
         .dark-mode header {
             background: linear-gradient(to right, #2d3748, #4a5568);
         }
 
-        .dark-mode .bg-gray-800 {
-            background-color: #2d3748 !important;
-        }
-
         .dark-mode .bg-white {
             background-color: #2d3748 !important;
         }
 
-        .dark-mode .text-gray-400 {
-            color: #a0aec0 !important;
+        .dark-mode .bg-gray-800 {
+            background-color: #4a5568 !important;
         }
 
         .dark-mode input {
@@ -129,7 +125,7 @@
                     <li><a href="login.html" class="hover:underline">Logout</a></li>
                 </ul>
             </nav>
-            <!-- Dark Mode Toggle -->
+            <!-- Dark Mode Toggle Button -->
             <button id="dark-mode-toggle" class="bg-gray-800 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-700 transition">
                 Dark Mode
             </button>
@@ -139,7 +135,6 @@
     <!-- Main Chat Section -->
     <main class="flex-grow container mx-auto px-4 py-6">
         <div class="bg-white rounded-lg shadow-lg flex flex-col h-[75vh] max-h-[75vh] overflow-hidden">
-
             <!-- Chat Output -->
             <div id="chat-container" class="flex-grow p-6 overflow-y-auto bg-gradient-to-t from-gray-100 to-gray-200 flex flex-col space-y-6">
                 <!-- Welcome message placeholder -->
@@ -174,6 +169,9 @@
 
     <!-- JavaScript -->
     <script>
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatContainer = document.getElementById('chat-container');
         const darkModeToggle = document.getElementById('dark-mode-toggle');
         const body = document.body;
 
@@ -182,7 +180,7 @@
             body.classList.add('dark-mode');
         }
 
-        // Toggle dark mode on button click
+        // Toggle Dark Mode
         darkModeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
 
@@ -194,7 +192,13 @@
             }
         });
 
-        // Other JavaScript code remains unchanged
+        // Play custom sound when page loads
+        const playWelcomeSound = () => {
+            const audio = new Audio("sounds/welcome.mp3");
+            audio.play().catch((error) => console.error("Failed to play sound:", error));
+        };
+
+        // (Remaining original JavaScript code remains unchanged)
     </script>
 </body>
 </html>
