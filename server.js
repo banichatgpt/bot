@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors()); // Allow frontend to communicate with the backend
 
 // Replace with your Google Gemini API key
-const apiKey = "AIzaSyB_ZFTlw-y0EIocVxhqIgp6QFfTOmL53Rg"; // Replace this with your API key
+const apiKey = "AIzaSyBrli3vbFSDQLDYI6c9k6flaUxs928BBQE"; // Replace this with your API key
 if (!apiKey) {
     console.error("API key is missing. Please set the API key.");
     process.exit(1);
